@@ -1,0 +1,22 @@
+:root {
+    --main-color: #41bbfd;
+}
+
+.game-board {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
+    background-color: var(--main-color);
+}
+
+.top-game {
+    display: grid;
+    height: 70%;
+}
+
+.bot-game {
+    height: 30%;
+    background-color: #282222;
+}
+
