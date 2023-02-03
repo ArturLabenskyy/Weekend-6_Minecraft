@@ -32,6 +32,7 @@ const tree = document.querySelector(`#tree`);
 const rock = document.querySelector(`#rock`);
 const ground = document.querySelector(`#ground`);
 const gras = document.querySelector(`#grass`);
+const body = document.querySelector(`body`);
 
 draw();
 let blocks = document.querySelectorAll(`.block`);
@@ -138,8 +139,10 @@ function updateInventory() {
 axe.addEventListener(`click`, (e) => {
     if (isAxe) {
         isAxe = false;
+        body.style.cursor = `grab`;
     } else {
         isAxe = true;
+        body.style.cursor = `url('../assets/img/axe-cursor.png'), auto`;
         isPickaxe = false;
         isShovel = false;
         isLeaf = false;
@@ -153,9 +156,11 @@ axe.addEventListener(`click`, (e) => {
 pickaxe.addEventListener(`click`, (e) => {
     if (isPickaxe) {
         isPickaxe = false;
+        body.style.cursor = `grab`;
     } else {
-        isAxe = false;
         isPickaxe = true;
+        body.style.cursor = `url('../assets/img/pickaxe-cursor.png'), auto`;
+        isAxe = false;
         isShovel = false;
         isLeaf = false;
         isTree = false;
@@ -168,10 +173,12 @@ pickaxe.addEventListener(`click`, (e) => {
 shovel.addEventListener(`click`, (e) => {
     if (isShovel) {
         isShovel = false;
+        body.style.cursor = `grab`;
     } else {
+        isShovel = true;
+        body.style.cursor = `url('../assets/img/shovel-cursor.png'), auto`;
         isAxe = false;
         isPickaxe = false;
-        isShovel = true;
         isLeaf = false;
         isTree = false;
         isRock = false;
@@ -183,8 +190,10 @@ shovel.addEventListener(`click`, (e) => {
 leaf.addEventListener(`click`, (e) => {
     if (isLeaf) {
         isLeaf = false;
+        body.style.cursor = `grab`;
     } else {
         isLeaf = true;
+        body.style.cursor = `url('../assets/img/moss-cursor.png'), auto`;
         isAxe = false;
         isPickaxe = false;
         isShovel = false;
@@ -198,8 +207,10 @@ leaf.addEventListener(`click`, (e) => {
 tree.addEventListener(`click`, (e) => {
     if (isTree) {
         isTree = false;
+        body.style.cursor = `grab`;
     } else {
         isTree = true;
+        body.style.cursor = `url('../assets/img/tree-cursor.png'), auto`;
         isAxe = false;
         isPickaxe = false;
         isShovel = false;
@@ -213,8 +224,10 @@ tree.addEventListener(`click`, (e) => {
 rock.addEventListener(`click`, (e) => {
     if (isRock) {
         isRock = false;
+        body.style.cursor = `grab`;
     } else {
         isRock = true;
+        body.style.cursor = `url('../assets/img/stone-cursor.png'), auto`;
         isAxe = false;
         isPickaxe = false;
         isShovel = false;
@@ -228,8 +241,10 @@ rock.addEventListener(`click`, (e) => {
 ground.addEventListener(`click`, (e) => {
     if (isGround) {
         isGround = false;
+        body.style.cursor = `grab`;
     } else {
         isGround = true;
+        body.style.cursor = `url('../assets/img/ground-cursor.png'), auto`;
         isAxe = false;
         isPickaxe = false;
         isShovel = false;
@@ -243,8 +258,10 @@ ground.addEventListener(`click`, (e) => {
 gras.addEventListener(`click`, (e) => {
     if (isGrass) {
         isGrass = false;
+        body.style.cursor = `grab`;
     } else {
         isGrass = true;
+        body.style.cursor = `url('../assets/img/grass-cursor.png'), auto`;
         isAxe = false;
         isPickaxe = false;
         isShovel = false;

@@ -2,6 +2,10 @@
     --main-color: #41bbfd;
 }
 
+body {
+    cursor: grab;
+}
+
 .game-board {
     display: flex;
     flex-direction: column;
