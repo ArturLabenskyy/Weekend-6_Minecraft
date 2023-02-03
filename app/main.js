@@ -34,13 +34,7 @@ const ground = document.querySelector(`#ground`);
 const gras = document.querySelector(`#grass`);
 
 draw();
-
 let blocks = document.querySelectorAll(`.block`);
-// let leafs = document.querySelectorAll(`.leafs`);
-// let trees = document.querySelectorAll(`.tree`);
-// let rocks = document.querySelectorAll(`.rock`);
-// let grounds = document.querySelectorAll(`.ground`);
-// let grass = document.querySelectorAll(`.grass`);
 
 blocks.forEach((el) => {
     el.addEventListener(`click`, function (e) {
@@ -300,4 +294,10 @@ function draw() {
             gameBoard.appendChild(block);
         }
     }
+}
+
+function refresh() {
+    map = level1;
+    draw();
+    blocks = document.querySelectorAll(`.block`);
 }
