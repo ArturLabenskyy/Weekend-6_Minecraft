@@ -1,4 +1,5 @@
-import { map } from "./levels.js";
+import { level1 } from "./levels.js";
+let map = level1;
 
 let inventory = {
     leafs: 0,
