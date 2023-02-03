@@ -35,11 +35,11 @@ const gras = document.querySelector(`#grass`);
 draw();
 
 let blocks = document.querySelectorAll(`.block`);
-let leafs = document.querySelectorAll(`.leafs`);
-let trees = document.querySelectorAll(`.tree`);
-let rocks = document.querySelectorAll(`.rock`);
-let grounds = document.querySelectorAll(`.ground`);
-let grass = document.querySelectorAll(`.grass`);
+// let leafs = document.querySelectorAll(`.leafs`);
+// let trees = document.querySelectorAll(`.tree`);
+// let rocks = document.querySelectorAll(`.rock`);
+// let grounds = document.querySelectorAll(`.ground`);
+// let grass = document.querySelectorAll(`.grass`);
 
 blocks.forEach((el) => {
     el.addEventListener(`click`, function (e) {
@@ -74,31 +74,38 @@ blocks.forEach((el) => {
             updateInventory();
         }
         if (el.classList.contains(`sky`)) {
+            const i = el.style.gridRowStart - 1;
+            const j = el.style.gridColumnStart - 1;
             if (isLeaf && inventory.leafs > 0) {
+                map[i][j] = 2;
                 el.classList.remove(`sky`);
                 el.classList.add(`leaf`);
                 inventory.leafs -= 1;
                 updateInventory();
             }
             if (isTree && inventory.tree > 0) {
+                map[i][j] = 3;
                 el.classList.remove(`sky`);
                 el.classList.add(`tree`);
                 inventory.tree -= 1;
                 updateInventory();
             }
             if (isRock && inventory.rock > 0) {
+                map[i][j] = 4;
                 el.classList.remove(`sky`);
                 el.classList.add(`rock`);
                 inventory.rock -= 1;
                 updateInventory();
             }
             if (isGrass && inventory.grass > 0) {
+                map[i][j] = 6;
                 el.classList.remove(`sky`);
                 el.classList.add(`grass`);
                 inventory.grass -= 1;
                 updateInventory();
             }
             if (isGround && inventory.ground > 0) {
+                map[i][j] = 5;
                 el.classList.remove(`sky`);
                 el.classList.add(`ground`);
                 inventory.ground -= 1;
