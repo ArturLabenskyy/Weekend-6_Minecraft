@@ -74,7 +74,7 @@ blocks.forEach((el) => {
             if (isLeaf && inventory.leafs > 0) {
                 map[i][j] = 2;
                 el.classList.remove(`sky`);
-                el.classList.add(`leaf`);
+                el.classList.add(`leafs`);
                 inventory.leafs -= 1;
                 updateInventory();
             }
