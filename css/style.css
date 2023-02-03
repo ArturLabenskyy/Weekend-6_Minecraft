@@ -12,11 +12,55 @@
 
 .top-game {
     display: grid;
-    height: 70%;
+    grid-template-rows: repeat(15, 1fr);
+    grid-template-columns: repeat(30, 1fr);
+    height: 80%;
 }
 
 .bot-game {
-    height: 30%;
+    display: flex;
+    height: 20%;
     background-color: #282222;
+}
+
+
+
+.block:hover {
+    border: .5px black solid;
+}
+
+.left-side {
+    height: 100%;
+    min-width: 30%;
+    display: flex;
+}
+
+.tool {
+    width: 30%;
+    height: 90%;
+    margin: auto 1rem;
+    border: 1px white solid;
+}
+
+
+
+.right-side {
+    display: flex;
+    height: 100%;
+    width: 70%;
+}
+
+.inventory {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 10%;
+    height: 50%;
+    margin: auto 1rem;
+    border: 1px white solid;
+}
+
+.inventory h2 {
+    font-size: 3rem;
 }
 

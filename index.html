@@ -8,12 +8,90 @@
     <link rel="stylesheet" href="./css/reset.css">
     <link rel="stylesheet" href="./css/style.css">
     <title>⛏ Minecraft 2D</title>
+    <style>
+        :root {
+            --main-color: #41bbfd;
+        }
+        .sky {
+            background-image: none;
+            background-color: var(--main-color);
+        }
+        .cloud {
+            background-image: none;
+            background-color: #ffffff;
+        }
+        .leafs {
+            background: url(./assets/img/moss.webp) no-repeat center center/cover;
+        }
+        .tree {
+            background: url(./assets/img/tree.webp) no-repeat center center/cover;
+        }
+        .rock {
+            background: url(./assets/img/stone.webp) no-repeat center center/cover;
+        }
+        .ground {
+            background: url(./assets/img/ground.webp) no-repeat center center/cover;
+        }
+        .grass {
+            background: url(./assets/img/grass.webp) no-repeat center center/cover;
+        }
+        #axe {
+            background: url(../assets/img/axe.webp) no-repeat center center/cover;
+        }
+        #pickaxe {
+            background: url(../assets/img/pickaxe.webp) no-repeat center center/cover;
+        }
+        #shovel {
+            background: url(../assets/img/shovel.webp) no-repeat center center/cover;
+        }
+        #leafs {
+            background: url(./assets/img/moss.webp) no-repeat center center/cover;
+        }
+        #tree {
+            background: url(./assets/img/tree.webp) no-repeat center center/cover;
+        }
+        #rock {
+            background: url(./assets/img/stone.webp) no-repeat center center/cover;
+        }
+        #ground {
+            background: url(./assets/img/ground.webp) no-repeat center center/cover;
+        }
+        #grass {
+            background: url(./assets/img/grass.webp) no-repeat center center/cover;
+        }
+        
+    </style>
 </head>
 <body>
     <div class="game-board">
         <div class="top-game"></div>
-        <div class="bot-game"></div>
+        <div class="bot-game">
+            <div class="left-side">
+                <div class="tool block" id="axe"></div>
+                <div class="tool block" id="pickaxe"></div>
+                <div class="tool block" id="shovel"></div>
+            </div>
+            <div class="right-side">
+                <div class="block inventory" id="leafs">
+                    <h2 id="inventory-leafs">0</h2>
+                </div>
+                <div class="block inventory" id="tree">
+                    <h2 id="inventory-trees">0</h2>
+                </div>
+                <div class="block inventory" id="rock">
+                    <h2 id="inventory-rocks">0</h2>
+                </div>
+                <div class="block inventory" id="ground">
+                    <h2 id="inventory-ground">0</h2>
+                </div>
+                <div class="block inventory" id="grass">
+                    <h2 id="inventory-grass">0</h2>
+                </div>
+                
+            </div>
+        </div>
     </div>
-    <script src="./app/main.js"></script>
+    <script type="module" src="./app/main.js"></script>
+    <script type="module" src="./app/levels.js"></script>
 </body>
 </html>
