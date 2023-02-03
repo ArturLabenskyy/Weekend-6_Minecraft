@@ -25,7 +25,7 @@
 
 
 
-.block:hover {
+.block:hover, .block-tool:hover, .block-inv:hover{
     border: .5px black solid;
 }
 

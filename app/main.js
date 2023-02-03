@@ -34,60 +34,76 @@ const gras = document.querySelector(`#grass`);
 
 draw();
 
+let blocks = document.querySelectorAll(`.block`);
 let leafs = document.querySelectorAll(`.leafs`);
 let trees = document.querySelectorAll(`.tree`);
 let rocks = document.querySelectorAll(`.rock`);
 let grounds = document.querySelectorAll(`.ground`);
 let grass = document.querySelectorAll(`.grass`);
 
-leafs.forEach((element) => {
-    element.addEventListener(`click`, function (e) {
-        if (removeCheck(element) && isAxe) {
-            element.classList.remove(`leafs`);
-            element.classList.add(`sky`);
+blocks.forEach((el) => {
+    el.addEventListener(`click`, function (e) {
+        if (el.classList.contains(`leafs`) && removeCheck(el) && isAxe) {
+            el.classList.remove(`leafs`);
+            el.classList.add(`sky`);
             inventory.leafs += 1;
             updateInventory();
         }
-    });
-});
-
-trees.forEach((element) => {
-    element.addEventListener(`click`, function (e) {
-        if (removeCheck(element) && isAxe) {
-            element.classList.remove(`tree`);
-            element.classList.add(`sky`);
+        if (el.classList.contains(`tree`) && removeCheck(el) && isAxe) {
+            el.classList.remove(`tree`);
+            el.classList.add(`sky`);
             inventory.tree += 1;
             updateInventory();
         }
-    });
-});
-
-rocks.forEach((element) => {
-    element.addEventListener(`click`, function (e) {
-        if (removeCheck(element) && isPickaxe) {
-            element.classList.remove(`rock`);
+        if (el.classList.contains(`rock`) && removeCheck(el) && isPickaxe) {
+            el.classList.remove(`rock`);
+            el.classList.add(`sky`);
             inventory.rock += 1;
             updateInventory();
         }
-    });
-});
-
-grounds.forEach((element) => {
-    element.addEventListener(`click`, function (e) {
-        if (removeCheck(element) && isShovel) {
-            element.classList.remove(`ground`);
+        if (el.classList.contains(`ground`) && removeCheck(el) && isShovel) {
+            el.classList.remove(`ground`);
+            el.classList.add(`sky`);
             inventory.ground += 1;
             updateInventory();
         }
-    });
-});
-
-grass.forEach((element) => {
-    element.addEventListener(`click`, function (e) {
-        if (removeCheck(element) && isShovel) {
-            element.classList.remove(`grass`);
+        if (el.classList.contains(`grass`) && removeCheck(el) && isShovel) {
+            el.classList.remove(`grass`);
+            el.classList.add(`sky`);
             inventory.grass += 1;
             updateInventory();
+        }
+        if (el.classList.contains(`sky`)) {
+            if (isLeaf && inventory.leafs > 0) {
+                el.classList.remove(`sky`);
+                el.classList.add(`leaf`);
+                inventory.leafs -= 1;
+                updateInventory();
+            }
+            if (isTree && inventory.tree > 0) {
+                el.classList.remove(`sky`);
+                el.classList.add(`tree`);
+                inventory.tree -= 1;
+                updateInventory();
+            }
+            if (isRock && inventory.rock > 0) {
+                el.classList.remove(`sky`);
+                el.classList.add(`rock`);
+                inventory.rock -= 1;
+                updateInventory();
+            }
+            if (isGrass && inventory.grass > 0) {
+                el.classList.remove(`sky`);
+                el.classList.add(`grass`);
+                inventory.grass -= 1;
+                updateInventory();
+            }
+            if (isGround && inventory.ground > 0) {
+                el.classList.remove(`sky`);
+                el.classList.add(`ground`);
+                inventory.ground -= 1;
+                updateInventory();
+            }
         }
     });
 });
@@ -106,16 +122,6 @@ function removeCheck(block) {
     ) {
         map[i][j] = 0;
         return true;
-    }
-}
-
-function buildCheck(block) {
-    const i = block.style.gridRowStart - 1;
-    const j = block.style.gridColumnStart - 1;
-    if (map[i][j] <= 1) {
-        return true;
-    } else {
-        return false;
     }
 }
 
@@ -246,15 +252,6 @@ gras.addEventListener(`click`, (e) => {
         isGround = false;
     }
 });
-
-function refresh() {
-    draw();
-    leafs = document.querySelectorAll(`.leafs`);
-    trees = document.querySelectorAll(`.tree`);
-    rocks = document.querySelectorAll(`.rock`);
-    grounds = document.querySelectorAll(`.ground`);
-    grass = document.querySelectorAll(`.grass`);
-}
 
 function draw() {
     for (let i = 0; i < map.length; i++) {
