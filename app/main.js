@@ -1,13 +1,7 @@
 import { level1 } from "./levels.js";
-let map = level1;
 
-let inventory = {
-    leafs: 0,
-    tree: 0,
-    rock: 0,
-    ground: 0,
-    grass: 0,
-};
+let map = JSON.parse(localStorage.getItem("map"));
+let inventory = JSON.parse(localStorage.getItem("inventory"));
 
 let isAxe = false;
 let isPickaxe = false;
@@ -17,7 +11,9 @@ let isTree = false;
 let isRock = false;
 let isGround = false;
 let isGrass = false;
-// let isCursor = true;
+
+localStorage.setItem(`map`, JSON.stringify(map));
+localStorage.setItem(`inventory`, JSON.stringify(inventory));
 
 const gameBoard = document.querySelector(`.top-game`);
 const leafInv = document.querySelector(`#inventory-leafs`);
@@ -34,9 +30,11 @@ const rock = document.querySelector(`#rock`);
 const ground = document.querySelector(`#ground`);
 const gras = document.querySelector(`#grass`);
 const body = document.querySelector(`body`);
+const reset = document.querySelector(`.reset`);
 
 draw();
-const blocks = document.querySelectorAll(`.block`);
+let blocks = document.querySelectorAll(`.block`);
+updateInventory();
 
 blocks.forEach((el) => {
     const i = el.style.gridRowStart - 1;
@@ -46,100 +44,96 @@ blocks.forEach((el) => {
             el.classList.remove(`leafs`);
             el.classList.add(`sky`);
             map[i][j] = 0;
+            localStorageUpdateMap(i, j, 0);
             inventory.leafs += 1;
+            localStorageUpdateInventory(`leafs`, 1);
             updateInventory();
         }
         if (el.classList.contains(`tree`) && removeCheck(el) && isAxe) {
             el.classList.remove(`tree`);
             el.classList.add(`sky`);
             map[i][j] = 0;
+            localStorageUpdateMap(i, j, 0);
             inventory.tree += 1;
+            localStorageUpdateInventory(`tree`, 1);
             updateInventory();
         }
         if (el.classList.contains(`rock`) && removeCheck(el) && isPickaxe) {
             el.classList.remove(`rock`);
             el.classList.add(`sky`);
             map[i][j] = 0;
+            localStorageUpdateMap(i, j, 0);
             inventory.rock += 1;
+            localStorageUpdateInventory(`rock`, 1);
             updateInventory();
         }
         if (el.classList.contains(`ground`) && removeCheck(el) && isShovel) {
             el.classList.remove(`ground`);
             el.classList.add(`sky`);
             map[i][j] = 0;
+            localStorageUpdateMap(i, j, 0);
             inventory.ground += 1;
+            localStorageUpdateInventory(`ground`, 1);
             updateInventory();
         }
         if (el.classList.contains(`grass`) && removeCheck(el) && isShovel) {
             el.classList.remove(`grass`);
             el.classList.add(`sky`);
             map[i][j] = 0;
+            localStorageUpdateMap(i, j, 0);
             inventory.grass += 1;
+            localStorageUpdateInventory(`grass`, 1);
             updateInventory();
         }
         if (el.classList.contains(`sky`)) {
             if (isLeaf && inventory.leafs > 0) {
                 map[i][j] = 2;
+                localStorageUpdateMap(i, j, 2);
                 el.classList.remove(`sky`);
                 el.classList.add(`leafs`);
                 inventory.leafs -= 1;
+                localStorageUpdateInventory(`leafs`, -1);
                 updateInventory();
             }
             if (isTree && inventory.tree > 0) {
                 map[i][j] = 3;
+                localStorageUpdateMap(i, j, 3);
                 el.classList.remove(`sky`);
                 el.classList.add(`tree`);
                 inventory.tree -= 1;
+                localStorageUpdateInventory(`tree`, -1);
                 updateInventory();
             }
             if (isRock && inventory.rock > 0) {
                 map[i][j] = 4;
+                localStorageUpdateMap(i, j, 4);
                 el.classList.remove(`sky`);
                 el.classList.add(`rock`);
                 inventory.rock -= 1;
+                localStorageUpdateInventory(`rock`, -1);
                 updateInventory();
             }
             if (isGrass && inventory.grass > 0) {
                 map[i][j] = 6;
+                localStorageUpdateMap(i, j, 6);
                 el.classList.remove(`sky`);
                 el.classList.add(`grass`);
                 inventory.grass -= 1;
+                localStorageUpdateInventory(`grass`, -1);
                 updateInventory();
             }
             if (isGround && inventory.ground > 0) {
                 map[i][j] = 5;
+                localStorageUpdateMap(i, j, 5);
                 el.classList.remove(`sky`);
                 el.classList.add(`ground`);
+                localStorageUpdateInventory(`ground`, -1);
                 inventory.ground -= 1;
                 updateInventory();
             }
         }
     });
 });
-
-function removeCheck(block) {
-    const i = block.style.gridRowStart - 1;
-    const j = block.style.gridColumnStart - 1;
-    if (map[i][j] <= 1) {
-        return false;
-    }
-    if (
-        map[i][j + 1] <= 1 ||
-        map[i][j - 1] <= 1 ||
-        map[i - 1][j] <= 1 ||
-        map[i + 1][j] <= 1
-    ) {
-        return true;
-    }
-}
-
-function updateInventory() {
-    leafInv.textContent = `${inventory.leafs}`;
-    treeInv.textContent = `${inventory.tree}`;
-    rockInv.textContent = `${inventory.rock}`;
-    groundInv.textContent = `${inventory.ground}`;
-    grassInv.textContent = `${inventory.grass}`;
-}
 
 axe.addEventListener(`click`, (e) => {
     if (isAxe) {
@@ -277,6 +271,44 @@ gras.addEventListener(`click`, (e) => {
     }
 });
 
+reset.addEventListener(`click`, (e) => {
+    resetMap();
+});
+
+function removeCheck(block) {
+    const i = block.style.gridRowStart - 1;
+    const j = block.style.gridColumnStart - 1;
+    if (map[i][j] <= 1) {
+        return false;
+    }
+    if (
+        map[i][j + 1] <= 1 ||
+        map[i][j - 1] <= 1 ||
+        map[i - 1][j] <= 1 ||
+        map[i + 1][j] <= 1
+    ) {
+        return true;
+    }
+}
+
+function updateInventory() {
+    leafInv.textContent = `${
+        JSON.parse(localStorage.getItem("inventory")).leafs
+    }`;
+    treeInv.textContent = `${
+        JSON.parse(localStorage.getItem("inventory")).tree
+    }`;
+    rockInv.textContent = `${
+        JSON.parse(localStorage.getItem("inventory")).rock
+    }`;
+    groundInv.textContent = `${
+        JSON.parse(localStorage.getItem("inventory")).ground
+    }`;
+    grassInv.textContent = `${
+        JSON.parse(localStorage.getItem("inventory")).grass
+    }`;
+}
+
 function draw() {
     for (let i = 0; i < map.length; i++) {
         for (let j = 0; j < map[i].length; j++) {
@@ -318,8 +350,91 @@ function draw() {
     }
 }
 
-function refresh() {
-    map = level1;
-    draw();
-    blocks = document.querySelectorAll(`.block`);
+function resetMap() {
+    inventory = {
+        leafs: 0,
+        tree: 0,
+        rock: 0,
+        ground: 0,
+        grass: 0,
+    };
+    isAxe = false;
+    isPickaxe = false;
+    isShovel = false;
+    isLeaf = false;
+    isTree = false;
+    isRock = false;
+    isGround = false;
+    isGrass = false;
+    body.style.cursor = `grab`;
+    map = level1.map((arr) => arr.slice());
+    console.log(map);
+    localStorage.setItem(`inventory`, JSON.stringify(inventory));
+    localStorage.setItem(`map`, JSON.stringify(map));
+    updateInventory();
+    blocks.forEach((el) => {
+        const i = el.style.gridRowStart - 1;
+        const j = el.style.gridColumnStart - 1;
+        switch (map[i][j]) {
+            case 0:
+                deleteAll(el);
+                el.classList.add(`sky`);
+                localStorageUpdateMap(i, j, 0);
+                break;
+            case 1:
+                deleteAll(el);
+                localStorageUpdateMap(i, j, 1);
+                el.classList.add(`cloud`);
+                break;
+            case 2:
+                deleteAll(el);
+                localStorageUpdateMap(i, j, 2);
+                el.classList.add(`leafs`);
+                break;
+            case 3:
+                deleteAll(el);
+                localStorageUpdateMap(i, j, 3);
+                el.classList.add(`tree`);
+                break;
+            case 4:
+                deleteAll(el);
+                localStorageUpdateMap(i, j, 4);
+                el.classList.add(`rock`);
+                break;
+            case 5:
+                deleteAll(el);
+                localStorageUpdateMap(i, j, 5);
+                el.classList.add(`ground`);
+                break;
+            case 6:
+                deleteAll(el);
+                localStorageUpdateMap(i, j, 6);
+                el.classList.add(`grass`);
+                break;
+        }
+    });
+}
+
+function localStorageUpdateMap(i, j, value) {
+    const localMap = localStorage.getItem("map");
+    let updateMap = JSON.parse(localMap);
+    updateMap[i][j] = value;
+    localStorage.setItem(`map`, JSON.stringify(updateMap));
+}
+
+function localStorageUpdateInventory(key, value) {
+    const localInv = localStorage.getItem("inventory");
+    let updateInv = JSON.parse(localInv);
+    updateInv[key] += value;
+    localStorage.setItem(`inventory`, JSON.stringify(updateInv));
+}
+
+function deleteAll(block) {
+    block.classList.remove(`sky`);
+    block.classList.remove(`cloud`);
+    block.classList.remove(`tree`);
+    block.classList.remove(`rock`);
+    block.classList.remove(`ground`);
+    block.classList.remove(`grass`);
+    block.classList.remove(`leafs`);
 }
