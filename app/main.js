@@ -368,7 +368,6 @@ function resetMap() {
     isGrass = false;
     body.style.cursor = `grab`;
     map = level1.map((arr) => arr.slice());
-    console.log(map);
     localStorage.setItem(`inventory`, JSON.stringify(inventory));
     localStorage.setItem(`map`, JSON.stringify(map));
     updateInventory();
