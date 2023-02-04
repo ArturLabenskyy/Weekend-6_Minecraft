@@ -17,6 +17,7 @@ let isTree = false;
 let isRock = false;
 let isGround = false;
 let isGrass = false;
+// let isCursor = true;
 
 const gameBoard = document.querySelector(`.top-game`);
 const leafInv = document.querySelector(`#inventory-leafs`);
@@ -35,43 +36,48 @@ const gras = document.querySelector(`#grass`);
 const body = document.querySelector(`body`);
 
 draw();
-let blocks = document.querySelectorAll(`.block`);
+const blocks = document.querySelectorAll(`.block`);
 
 blocks.forEach((el) => {
+    const i = el.style.gridRowStart - 1;
+    const j = el.style.gridColumnStart - 1;
     el.addEventListener(`click`, function (e) {
         if (el.classList.contains(`leafs`) && removeCheck(el) && isAxe) {
             el.classList.remove(`leafs`);
             el.classList.add(`sky`);
+            map[i][j] = 0;
             inventory.leafs += 1;
             updateInventory();
         }
         if (el.classList.contains(`tree`) && removeCheck(el) && isAxe) {
             el.classList.remove(`tree`);
             el.classList.add(`sky`);
+            map[i][j] = 0;
             inventory.tree += 1;
             updateInventory();
         }
         if (el.classList.contains(`rock`) && removeCheck(el) && isPickaxe) {
             el.classList.remove(`rock`);
             el.classList.add(`sky`);
+            map[i][j] = 0;
             inventory.rock += 1;
             updateInventory();
         }
         if (el.classList.contains(`ground`) && removeCheck(el) && isShovel) {
             el.classList.remove(`ground`);
             el.classList.add(`sky`);
+            map[i][j] = 0;
             inventory.ground += 1;
             updateInventory();
         }
         if (el.classList.contains(`grass`) && removeCheck(el) && isShovel) {
             el.classList.remove(`grass`);
             el.classList.add(`sky`);
+            map[i][j] = 0;
             inventory.grass += 1;
             updateInventory();
         }
         if (el.classList.contains(`sky`)) {
-            const i = el.style.gridRowStart - 1;
-            const j = el.style.gridColumnStart - 1;
             if (isLeaf && inventory.leafs > 0) {
                 map[i][j] = 2;
                 el.classList.remove(`sky`);
@@ -123,7 +129,6 @@ function removeCheck(block) {
         map[i - 1][j] <= 1 ||
         map[i + 1][j] <= 1
     ) {
-        map[i][j] = 0;
         return true;
     }
 }
