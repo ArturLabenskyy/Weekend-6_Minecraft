@@ -1,5 +1,6 @@
 import { level1 } from "./levels.js";
 
+localStorage.setItem(`map`, JSON.stringify(level1));
 let map = JSON.parse(localStorage.getItem("map"));
 let inventory = JSON.parse(localStorage.getItem("inventory"));
 
