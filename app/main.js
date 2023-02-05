@@ -1,17 +1,28 @@
 import { level1 } from "./levels.js";
 
-localStorage.setItem(`map`, JSON.stringify(level1));
-let map = JSON.parse(localStorage.getItem("map"));
-// let inventory = JSON.parse(localStorage.getItem("inventory"));
-let inventory = {
-    leafs: 0,
-    tree: 0,
-    rock: 0,
-    ground: 0,
-    grass: 0,
-};
-localStorage.setItem(`inventory`, JSON.stringify(inventory));
-inventory = JSON.parse(localStorage.getItem("inventory"));
+let inventory = {};
+let map;
+if (localStorage.getItem("map") === null) {
+    localStorage.setItem("map", JSON.stringify(level1));
+} else {
+    map = JSON.parse(localStorage.getItem("map"));
+}
+if (localStorage.getItem("inventory") === null) {
+    inventory = {
+        leafs: 0,
+        tree: 0,
+        rock: 0,
+        ground: 0,
+        grass: 0,
+    };
+} else {
+    inventory = JSON.parse(localStorage.getItem("inventory"));
+    localStorage.setItem(`inventory`, JSON.stringify(inventory));
+}
+
+// let map = JSON.parse(localStorage.getItem("map"));
+// inventory = JSON.parse(localStorage.getItem("inventory"));
+// localStorage.setItem(`inventory`, JSON.stringify(inventory));
 
 let isAxe = false;
 let isPickaxe = false;
