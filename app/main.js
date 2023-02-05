@@ -8,6 +8,7 @@ if (localStorage.getItem("map") === null) {
 } else {
     map = JSON.parse(localStorage.getItem("map"));
 }
+
 if (localStorage.getItem("inventory") === null) {
     inventory = {
         leafs: 0,
@@ -21,6 +22,24 @@ if (localStorage.getItem("inventory") === null) {
     localStorage.setItem(`inventory`, JSON.stringify(inventory));
 }
 
+if (localStorage.getItem("map") === undefined) {
+    localStorage.setItem("map", JSON.stringify(level1));
+} else {
+    map = JSON.parse(localStorage.getItem("map"));
+}
+
+if (localStorage.getItem("inventory") === undefined) {
+    inventory = {
+        leafs: 0,
+        tree: 0,
+        rock: 0,
+        ground: 0,
+        grass: 0,
+    };
+} else {
+    inventory = JSON.parse(localStorage.getItem("inventory"));
+    localStorage.setItem(`inventory`, JSON.stringify(inventory));
+}
 let isAxe = false;
 let isPickaxe = false;
 let isShovel = false;
