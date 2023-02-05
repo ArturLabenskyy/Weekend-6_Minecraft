@@ -2,7 +2,16 @@ import { level1 } from "./levels.js";
 
 localStorage.setItem(`map`, JSON.stringify(level1));
 let map = JSON.parse(localStorage.getItem("map"));
-let inventory = JSON.parse(localStorage.getItem("inventory"));
+// let inventory = JSON.parse(localStorage.getItem("inventory"));
+let inventory = {
+    leafs: 0,
+    tree: 0,
+    rock: 0,
+    ground: 0,
+    grass: 0,
+};
+localStorage.setItem(`inventory`, JSON.stringify(inventory));
+inventory = JSON.parse(localStorage.getItem("inventory"));
 
 let isAxe = false;
 let isPickaxe = false;
