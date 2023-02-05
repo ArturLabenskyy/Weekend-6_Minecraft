@@ -20,10 +20,6 @@ if (localStorage.getItem("inventory") === null) {
     localStorage.setItem(`inventory`, JSON.stringify(inventory));
 }
 
-// let map = JSON.parse(localStorage.getItem("map"));
-// inventory = JSON.parse(localStorage.getItem("inventory"));
-// localStorage.setItem(`inventory`, JSON.stringify(inventory));
-
 let isAxe = false;
 let isPickaxe = false;
 let isShovel = false;
