@@ -2,6 +2,7 @@ import { level1 } from "./levels.js";
 
 let inventory = {};
 let map;
+
 if (localStorage.getItem("map") === null) {
     localStorage.setItem("map", JSON.stringify(level1));
 } else {
